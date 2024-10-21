@@ -1,0 +1,6 @@
+{
+  "app_name": "nestj.back",
+  "description": "App description",
+  "owner": "KOPyrkov",
+  "entity_slug": "{{ cookiecutter.entity_name | lower | replace(' ', '-') }}"
+}
