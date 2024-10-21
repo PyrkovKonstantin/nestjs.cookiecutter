@@ -22,10 +22,10 @@ function initializeSwaggerDocumentation(
   swaggerPath: string,
 ) {
   const swaggerDocs = new DocumentBuilder()
-    .setTitle('${{ cookiecutter.app_name }}')
-    .setDescription('The ${{ cookiecutter.app_name }} API description')
+    .setTitle('{{ cookiecutter.app_name }}')
+    .setDescription('The {{ cookiecutter.app_name }} API description')
     .setVersion('1.0')
-    .addTag('${{ cookiecutter.app_name }}')
+    .addTag('{{ cookiecutter.app_name }}')
     .addBearerAuth()
     .build();
 

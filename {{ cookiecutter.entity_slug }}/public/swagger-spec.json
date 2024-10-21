@@ -18,14 +18,14 @@
         }
     },
     "info": {
-        "title": "${{ cookiecutter.app_name }}",
-        "description": "The ${{ cookiecutter.app_name }} API description",
+        "title": "{{ cookiecutter.app_name }}",
+        "description": "The {{ cookiecutter.app_name }} API description",
         "version": "1.0",
         "contact": {}
     },
     "tags": [
         {
-            "name": "${{ cookiecutter.app_name }}",
+            "name": "{{ cookiecutter.app_name }}",
             "description": ""
         }
     ],
