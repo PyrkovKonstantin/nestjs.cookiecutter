@@ -1,6 +1,7 @@
 {
-  "app_name": "nestj.back",
+  "app_name": "NestJS App",
   "description": "App description",
   "owner": "KOPyrkov",
-  "entity_slug": "{{ cookiecutter.app_name | lower | replace(' ', '-') }}"
+  "entity_slug": "{{ cookiecutter.app_name | lower | replace(' ', '-') }}",
+  "use_db": "y"
 }
