@@ -7,7 +7,7 @@ metadata:
   {%- endif %}
 spec:
   type: service
-  owner: {{ cookiecutter.owner }}
+  owner: user:{{ cookiecutter.owner }}
   lifecycle: experimental
 ---
 apiVersion: backstage.io/v1alpha1
@@ -17,5 +17,5 @@ metadata:
 spec:
   type: openapi
   lifecycle: experimental
-  owner: {{ cookiecutter.owner }}
+  owner: user:{{ cookiecutter.owner }}
   definition: ./public/swagger-spec.json
