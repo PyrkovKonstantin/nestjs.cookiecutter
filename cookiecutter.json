@@ -1,0 +1,7 @@
+{
+  "app_name": "NestJS App",
+  "description": "App description",
+  "owner": "KOPyrkov",
+  "entity_slug": "{{ cookiecutter.app_name | lower | replace(' ', '-') }}",
+  "components": "db,mailer,consumer,jwt,storage"
+}

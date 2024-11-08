@@ -1,0 +1,21 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: {{ cookiecutter.app_name }}
+  {%- if cookiecutter.description %}
+  description: {{ cookiecutter.description }}
+  {%- endif %}
+spec:
+  type: service
+  owner: user:{{ cookiecutter.owner }}
+  lifecycle: experimental
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: {{ cookiecutter.app_name }} API
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: user:{{ cookiecutter.owner }}
+  definition: ./public/swagger-spec.json

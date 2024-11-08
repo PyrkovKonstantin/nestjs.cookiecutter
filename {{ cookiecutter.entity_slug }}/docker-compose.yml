@@ -1,0 +1,56 @@
+{%- set components = cookiecutter.components.split(',') -%}
+{%- set db = "db" in components -%}
+{%- set consumer = "consumer" in components -%}
+version: '3.8'
+
+services:
+  app: 
+    container_name: {{ cookiecutter.entity_slug }}
+    build: .
+  {%- if db %}
+    depends_on:
+      - db
+  {%- endif %}
+{%- if db %}
+  db:
+    image: 'postgres:16'
+    container_name: {{ cookiecutter.entity_slug }}-postgres
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    environment:
+      POSTGRES_PORT: ${POSTGRES_PORT}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+{%- endif %}
+
+{%- if consumer %}
+  rabbitmq:
+    image: rabbitmq:3.12.13-management
+    container_name: {{cookiecutter.entity_slug}}-rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672" #amqp
+      - "15672:15672" #http
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status" ]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    volumes:
+      - rabbit-data-volume:/var/lib/rabbitmq/
+{%- endif %}
+
+volumes:
+{%- if db %}
+  postgresql-db-volume:
+{%- endif %}
+
+{%- if consumer %}
+  rabbit-data-volume:
+{%- endif %}
+
+networks:
+  default:
+      name: backend
+      external: true
