@@ -1,3 +1,5 @@
+{%- set components = cookiecutter.components.split(',') -%}
+{%- set consumer = "consumer" in components -%}
 import 'reflect-metadata';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
@@ -7,11 +9,12 @@ import { ValidationPipe } from './pipes/validation.pipe';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import cookieParser from 'cookie-parser';
 import { INestApplication } from '@nestjs/common';
+{%- if consumer %}
 import { AmqpBrokerService } from './modules/amqp-broker/amqp-broker.service';
+{%- endif %}
 import { sleep } from './libs/utils';
 import morgan from 'morgan';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import config from './config';
 import {
   FastifyAdapter,
   NestFastifyApplication,
@@ -65,7 +68,7 @@ export async function bootstrap() {
     initializeSwaggerDocumentation(app, swaggerPath);
   }
 
-  await app.listen(config.appPort);
+  await app.listen({ port: +process.env.PORT, host: '0.0.0.0' });
 
   return app;
 }
@@ -73,8 +76,10 @@ export async function bootstrap() {
 const shutdown = async (app: INestApplication) => {
   logger.log('Gracefull shutdown');
   try {
+    {%- if consumer %}
     const amqpBrokerService = app.get(AmqpBrokerService);
     await amqpBrokerService.close();
+    {%- endif %}
     await sleep(1 * 1000);
     await app.close();
     process.exit(0);

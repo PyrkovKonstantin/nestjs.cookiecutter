@@ -43,16 +43,9 @@
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.3.0",
     "@nestjs/core": "^10.0.0",
-    {%- if jwt %}
-    "@nestjs/jwt": "^10.2.0",
-    "@nestjs/passport": "^10.0.3",
-    {%- endif %}
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/platform-fastify": "^10.4.4",
     "@nestjs/swagger": "^7.4.2",
-    {%- if jwt %}
-    "@nestjs/typeorm": "^10.0.2",
-    {%- endif %}
     {%- if consumer %}
     "amqp-connection-manager": "^4.1.14",
     "amqplib": "^0.10.4",
@@ -68,9 +61,12 @@
     {%- if jwt %}
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
+    "@nestjs/jwt": "^10.2.0",
+    "@nestjs/passport": "^10.0.3",
     {%- endif %}
     {%- if db %}
     "pg": "^8.13.0",
+    "@nestjs/typeorm": "^10.0.2",
     "typeorm": "^0.3.20",
     "typeorm-extension": "^3.6.2",
     {%- endif %}
